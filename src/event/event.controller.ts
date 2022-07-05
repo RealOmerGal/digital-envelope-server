@@ -3,6 +3,8 @@ import { EventService } from './event.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 
+// TODO: Format the result to only include the eventId and not the whole event using DTO/Interceptor/Middleware
+
 @Controller('event')
 export class EventController {
   constructor(private readonly eventService: EventService) { }
