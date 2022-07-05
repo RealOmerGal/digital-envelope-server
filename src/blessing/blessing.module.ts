@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BlessingService } from './blessing.service';
 import { BlessingController } from './blessing.controller';
-import { EventModule } from 'src/event/event.module';
+import { EventModule } from '../event/event.module';
 import { Blessing } from './entities/blessing.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Event } from '../event/entities/event.entity';
