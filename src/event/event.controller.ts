@@ -1,25 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { EventService } from './event.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-
-// TODO: Format the result to only include the eventId and not the whole event using DTO/Interceptor/Middleware
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('event')
 export class EventController {
-  constructor(private readonly eventService: EventService) { }
+  constructor(private readonly eventService: EventService) {}
 
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   create(@Body() createEventDto: CreateEventDto) {
     return this.eventService.create(createEventDto);
   }
 
-  @Get()
-  findAll() {
-    return this.eventService.findAllByUser(123);
-  }
-
   @Get('/:id')
+  @UseGuards(AuthGuard('jwt'))
   findOne(@Param('id') id: string) {
     return this.eventService.findOne(+id);
   }

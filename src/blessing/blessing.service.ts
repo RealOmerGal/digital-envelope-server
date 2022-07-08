@@ -7,10 +7,10 @@ import { EventService } from '../event/event.service';
 
 @Injectable()
 export class BlessingService {
-
-  constructor(@InjectRepository(Blessing) private repo: Repository<Blessing>,
-    private eventService: EventService
-  ) { }
+  constructor(
+    @InjectRepository(Blessing) private repo: Repository<Blessing>,
+    private eventService: EventService,
+  ) {}
 
   async create(createBlessingDto: CreateBlessingDto, eventId: number) {
     const event = await this.eventService.findOne(eventId);
@@ -20,6 +20,6 @@ export class BlessingService {
 
   async findAllByEvent(eventId) {
     const event = await this.eventService.findOne(eventId);
-    return this.repo.find({ where: { event: { id: event.id } } })
+    return this.repo.find({ where: { event: { id: event.id } } });
   }
 }
