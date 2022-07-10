@@ -8,7 +8,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(
     session({
-      secret: 'ilikeicrecream',
+      secret: process.env.SESSION_SECRET,
       cookie: { maxAge: 1000 * 60 * 24 * 14 },
       resave: false,
       saveUninitialized: false,

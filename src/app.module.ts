@@ -5,11 +5,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { BlessingModule } from './blessing/blessing.module';
-import { Blessing } from './blessing/entities/blessing.entity';
-import { Event } from './event/entities/event.entity';
+import { Blessing } from './blessing/blessing.entity';
+import { Event } from './event/event.entity';
 import { EventModule } from './event/event.module';
-import { User } from './user/entities/user.entity';
+import { User } from './user/user.entity';
 import { UserModule } from './user/user.module';
+import { PaymentModule } from './payment/payment.module';
+import { Payment } from './payment/payment.entity';
 
 @Module({
   imports: [
@@ -28,13 +30,14 @@ import { UserModule } from './user/user.module';
           ssl: {
             rejectUnauthorized: false,
           },
-          entities: [Blessing, Event, User],
+          entities: [Blessing, Event, User, Payment],
         };
       },
     }),
     BlessingModule,
     UserModule,
     AuthModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

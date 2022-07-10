@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateEventDto } from './dto/create-event.dto';
-import { Event } from './entities/event.entity';
+import { Event } from './event.entity';
 
 @Injectable()
 export class EventService {
@@ -18,7 +18,9 @@ export class EventService {
     if (!event) throw new NotFoundException('Event not found');
     return event;
   }
-
+  async findByUser(userid: number) {
+    return await this.repo.findBy({ id: userid });
+  }
   async update(id: number, attrs: Partial<Event>) {
     const event = await this.findOne(id);
     Object.assign(event, attrs);
