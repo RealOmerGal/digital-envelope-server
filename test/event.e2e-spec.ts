@@ -7,6 +7,7 @@ describe('Event Module', () => {
     let app: INestApplication;
     let eventId;
     const name = 'AUTO_ADDED_EVENT';
+    const estimatedGuests = 150;
     beforeEach(async () => {
         const moduleFixture: TestingModule = await Test.createTestingModule({
             imports: [AppModule],
@@ -19,7 +20,7 @@ describe('Event Module', () => {
     it('creates a new event', () => {
         return request(app.getHttpServer())
             .post('/event')
-            .send({ name })
+            .send({ name, estimatedGuests })
             .expect(201)
             .then((res) => {
                 const { id, name } = res.body;
