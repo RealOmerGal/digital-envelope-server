@@ -9,6 +9,7 @@ export class BlessingDto {
 
   @Expose()
   id: number;
+
   @Expose()
   createdAt: Date;
 
@@ -16,6 +17,7 @@ export class BlessingDto {
   @Expose()
   eventId: number;
 
-  @Expose()
-  paymentId: number;
+  // @Transform(({ obj }) => obj.payment.amount)
+  // @Expose()
+  // paymentAmount: number;
 }
