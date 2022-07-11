@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -12,6 +12,8 @@ import { User } from './user/user.entity';
 import { UserModule } from './user/user.module';
 import { PaymentModule } from './payment/payment.module';
 import { Payment } from './payment/payment.entity';
+import { APP_FILTER, APP_PIPE } from '@nestjs/core';
+import { QueryFailedErrorFilter } from './filters/query-failed.filter';
 
 @Module({
   imports: [
@@ -40,6 +42,16 @@ import { Payment } from './payment/payment.entity';
     PaymentModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_PIPE,
+      useValue: new ValidationPipe({ whitelist: true }),
+    },
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: QueryFailedErrorFilter,
+    // },
+  ],
 })
 export class AppModule {}

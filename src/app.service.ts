@@ -32,4 +32,17 @@ export class AppService {
       [eventId],
     );
   }
+
+  averagePerGuest(eventId: number) {
+    return this.entityManager.query(
+      `SELECT AVG(payment.amount) 
+       FROM payments
+       INNER JOIN blessing
+       ON blessing."paymentId" = payment.id
+       INNER JOIN event
+       ON blessing."eventId"  = event.id
+       WHERE event.id = $1`,
+      [eventId],
+    );
+  }
 }

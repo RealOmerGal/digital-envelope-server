@@ -17,7 +17,7 @@ export class BlessingDto {
   @Expose()
   eventId: number;
 
-  // @Transform(({ obj }) => obj.payment.amount)
-  // @Expose()
-  // paymentAmount: number;
+  @Transform(({ obj }) => obj.payment.amount)
+  @Expose()
+  paymentAmount: number;
 }

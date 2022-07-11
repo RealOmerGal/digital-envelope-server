@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateBlessingDto } from './dto/create-blessing.dto';
@@ -14,12 +14,15 @@ export class BlessingService {
 
   async create(createBlessingDto: CreateBlessingDto, eventId: number) {
     const event = await this.eventService.findOne(eventId);
-    const blessing = this.repo.create({ ...createBlessingDto, event });
+    if (!event) throw new NotFoundException('Event not found');
+    const blessing = this.repo.create({
+      ...createBlessingDto,
+      event: { id: eventId },
+    });
     return this.repo.save(blessing);
   }
 
-  async findByEvent(eventId) {
-    const event = await this.eventService.findOne(eventId);
-    return this.repo.find({ where: { event: { id: event.id } } });
+  async findByEvent(eventId: number) {
+    return this.repo.find({ where: { event: { id: eventId } } });
   }
 }
