@@ -4,7 +4,7 @@ import { EntityManager } from 'typeorm';
 
 @Injectable()
 export class AppService {
-  constructor(@InjectEntityManager() private entityManager: EntityManager) {}
+  constructor(@InjectEntityManager() private entityManager: EntityManager) { }
   paidGuestsCount(eventId: number) {
     return this.entityManager.query(
       `SELECT event."estimatedGuests" AS Max,COUNT(blessing.id) AS Current
@@ -35,7 +35,7 @@ export class AppService {
 
   averagePerGuest(eventId: number) {
     return this.entityManager.query(
-      `SELECT AVG(payment.amount) 
+      `SELECT AVG(payment.amount::numeric) 
        FROM payments
        INNER JOIN blessing
        ON blessing."paymentId" = payment.id

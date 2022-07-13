@@ -12,12 +12,16 @@ import { User } from './user/user.entity';
 import { UserModule } from './user/user.module';
 import { PaymentModule } from './payment/payment.module';
 import { Payment } from './payment/payment.entity';
-import { APP_FILTER, APP_PIPE } from '@nestjs/core';
-import { QueryFailedErrorFilter } from './filters/query-failed.filter';
+import { APP_PIPE } from '@nestjs/core';
+
 
 @Module({
   imports: [
     EventModule,
+    BlessingModule,
+    UserModule,
+    AuthModule,
+    PaymentModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -36,10 +40,7 @@ import { QueryFailedErrorFilter } from './filters/query-failed.filter';
         };
       },
     }),
-    BlessingModule,
-    UserModule,
-    AuthModule,
-    PaymentModule,
+
   ],
   controllers: [AppController],
   providers: [
@@ -54,4 +55,4 @@ import { QueryFailedErrorFilter } from './filters/query-failed.filter';
     // },
   ],
 })
-export class AppModule {}
+export class AppModule { }

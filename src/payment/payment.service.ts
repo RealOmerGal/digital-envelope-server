@@ -5,5 +5,9 @@ import { Payment } from './payment.entity';
 
 @Injectable()
 export class PaymentService {
-  constructor(@InjectRepository(Payment) private repo: Repository<Payment>) {}
+  constructor(@InjectRepository(Payment) private repo: Repository<Payment>) { }
+
+  findById(id: number) {
+    return this.repo.findOneBy({ id });
+  }
 }

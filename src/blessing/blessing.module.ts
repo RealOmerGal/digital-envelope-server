@@ -5,11 +5,12 @@ import { EventModule } from '../event/event.module';
 import { Blessing } from './blessing.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Event } from '../event/event.entity';
-// import { Payment } from '../payment/entities/payment.entity';
+import { PaymentModule } from '../payment/payment.module';
+import { Payment } from '../payment/payment.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Blessing, Event]), EventModule],
+  imports: [TypeOrmModule.forFeature([Blessing, Event, Payment]), EventModule, PaymentModule],
   controllers: [BlessingController],
   providers: [BlessingService],
 })
-export class BlessingModule {}
+export class BlessingModule { }
