@@ -5,18 +5,16 @@ import { BlessingDto } from './dto/blessing.dto';
 import { CreateBlessingDto } from './dto/create-blessing.dto';
 
 @Controller('blessing')
-@Serialize(BlessingDto)
 export class BlessingController {
-  constructor(private readonly blessingService: BlessingService) { }
+  constructor(private readonly blessingService: BlessingService) {}
 
   @Post('/')
-  create(
-    @Body() createBlessingDto: CreateBlessingDto,
-  ) {
+  create(@Body() createBlessingDto: CreateBlessingDto) {
     return this.blessingService.create(createBlessingDto);
   }
 
   @Get('/:eventid')
+  @Serialize(BlessingDto)
   findByEvent(@Param('eventid') eventId: number) {
     return this.blessingService.findByEvent(eventId);
   }

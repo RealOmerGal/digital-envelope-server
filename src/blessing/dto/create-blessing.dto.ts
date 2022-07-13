@@ -1,16 +1,15 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreateBlessingDto {
+  @IsString()
+  createdBy: string;
 
-    @IsString()
-    createdBy: string
+  @IsString()
+  text: string;
 
-    @IsString()
-    text: string
+  @IsNumber()
+  eventId: number;
 
-    @IsNumber()
-    paymentId: number
-
-    @IsNumber()
-    eventId: number
+  @IsNumber()
+  paymentId: number;
 }
