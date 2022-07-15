@@ -4,9 +4,9 @@ import { EntityManager } from 'typeorm';
 
 @Injectable()
 export class AppService {
-  constructor(@InjectEntityManager() private entityManager: EntityManager) { }
-  paidGuestsCount(eventId: number) {
-    return this.entityManager.query(
+  constructor(@InjectEntityManager() private entityManager: EntityManager) {}
+  async paidGuestsCount(eventId: number) {
+    const res = await this.entityManager.query(
       `SELECT event."estimatedGuests" AS Max,COUNT(blessing.id) AS Current
       FROM event
       INNER JOIN blessing
@@ -16,10 +16,11 @@ export class AppService {
   `,
       [eventId],
     );
+    return res[0];
   }
 
-  totalAmount(eventId: number) {
-    return this.entityManager.query(
+  async totalAmount(eventId: number) {
+    const res = await this.entityManager.query(
       `
       SELECT SUM(payment.amount)
       FROM payment
@@ -31,17 +32,34 @@ export class AppService {
     `,
       [eventId],
     );
+    return res[0];
   }
 
-  averagePerGuest(eventId: number) {
-    return this.entityManager.query(
+  async averagePerGuest(eventId: number) {
+    const res = await this.entityManager.query(
       `SELECT AVG(payment.amount::numeric) 
-       FROM payments
+       FROM payment
        INNER JOIN blessing
        ON blessing."paymentId" = payment.id
        INNER JOIN event
        ON blessing."eventId"  = event.id
        WHERE event.id = $1`,
+      [eventId],
+    );
+    return res[0];
+  }
+
+  top3Guests(eventId: number) {
+    return this.entityManager.query(
+      `SELECT blessing."createdBy", payment.amount
+      FROM blessing
+      INNER JOIN payment
+      ON payment.id = blessing."paymentId"
+      INNER JOIN event
+      ON event.id = blessing."eventId"
+      WHERE event.id = $1
+      ORDER BY payment.amount DESC
+      LIMIT 3`,
       [eventId],
     );
   }

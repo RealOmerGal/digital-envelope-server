@@ -2,7 +2,6 @@ import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { BlessingModule } from './blessing/blessing.module';
 import { Blessing } from './blessing/blessing.entity';
@@ -13,7 +12,7 @@ import { UserModule } from './user/user.module';
 import { PaymentModule } from './payment/payment.module';
 import { Payment } from './payment/payment.entity';
 import { APP_PIPE } from '@nestjs/core';
-
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -40,7 +39,6 @@ import { APP_PIPE } from '@nestjs/core';
         };
       },
     }),
-
   ],
   controllers: [AppController],
   providers: [
@@ -55,4 +53,4 @@ import { APP_PIPE } from '@nestjs/core';
     // },
   ],
 })
-export class AppModule { }
+export class AppModule {}
