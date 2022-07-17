@@ -7,7 +7,7 @@ export class AppService {
   constructor(@InjectEntityManager() private entityManager: EntityManager) {}
   async paidGuestsCount(eventId: number) {
     const res = await this.entityManager.query(
-      `SELECT event."estimatedGuests" AS Max,COUNT(blessing.id) AS Current
+      `SELECT event."estimatedGuests" AS Max, COUNT(blessing.id)::int AS Current
       FROM event
       INNER JOIN blessing
       ON event.id = blessing."eventId"
@@ -37,7 +37,7 @@ export class AppService {
 
   async averagePerGuest(eventId: number) {
     const res = await this.entityManager.query(
-      `SELECT AVG(payment.amount::numeric) 
+      `SELECT AVG(payment.amount::numeric)::int
        FROM payment
        INNER JOIN blessing
        ON blessing."paymentId" = payment.id
