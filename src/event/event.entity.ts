@@ -8,6 +8,13 @@ import {
   OneToMany,
 } from 'typeorm';
 
+export enum EventTypes {
+  Wedding = 'Wedding',
+  Birthday = 'Birthday',
+  Party = 'Party',
+  Other = 'Other',
+}
+
 @Entity()
 export class Event {
   @PrimaryGeneratedColumn()
@@ -24,6 +31,9 @@ export class Event {
 
   @Column()
   estimatedGuests: number;
+
+  @Column({ type: 'enum', enum: EventTypes })
+  type: EventTypes;
 
   @Column({ default: false })
   closed: boolean;

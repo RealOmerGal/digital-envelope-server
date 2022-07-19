@@ -1,4 +1,5 @@
-import { IsNumberString, IsString } from 'class-validator';
+import { IsEnum, IsNumberString, IsString } from 'class-validator';
+import { EventTypes } from '../event.entity';
 
 export class CreateEventDto {
   @IsString()
@@ -6,4 +7,7 @@ export class CreateEventDto {
 
   @IsNumberString()
   estimatedGuests: number;
+
+  @IsEnum(EventTypes)
+  type: EventTypes;
 }
