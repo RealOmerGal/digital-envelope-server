@@ -18,9 +18,10 @@ export class EventService {
     if (!event) throw new NotFoundException('Event not found');
     return event;
   }
-  async findByUser(userid: number) {
-    return await this.repo.findBy({ id: userid });
+  async findByUser(userid: string) {
+    return await this.repo.findBy({ user: { id: userid } });
   }
+
   async update(id: number, attrs: Partial<Event>) {
     const event = await this.findOne(id);
     Object.assign(event, attrs);
@@ -28,7 +29,6 @@ export class EventService {
   }
 
   async remove(id: number) {
-    const event = await this.findOne(id);
-    return this.repo.remove(event);
+    return this.repo.delete(id);
   }
 }

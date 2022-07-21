@@ -6,7 +6,9 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
+import { User } from 'src/user/user.entity';
 
 export enum EventTypes {
   Wedding = 'Wedding',
@@ -40,4 +42,7 @@ export class Event {
 
   @OneToMany(() => Blessing, (blessing) => blessing.event)
   blessings: Blessing[];
+
+  @ManyToOne(() => User, (user) => user.events)
+  user: User;
 }

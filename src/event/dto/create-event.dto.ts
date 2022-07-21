@@ -1,4 +1,4 @@
-import { IsEnum, IsNumberString, IsString } from 'class-validator';
+import { IsDefined, IsEnum, IsNumberString, IsString } from 'class-validator';
 import { EventTypes } from '../event.entity';
 
 export class CreateEventDto {
@@ -10,4 +10,7 @@ export class CreateEventDto {
 
   @IsEnum(EventTypes)
   type: EventTypes;
+
+  @IsDefined()
+  userId: any;
 }
